@@ -1,46 +1,28 @@
-# Panduan Kontribusi (Contributing Guidelines)
+# Panduan Kontribusi (Contributing Guide)
 
-Terima kasih telah tertarik untuk berkontribusi pada pengembangan website server Minecraft ini! Kami sangat menghargai kontribusi dari komunitas untuk menjaga kualitas website tetap optimal, cepat, dan responsif.
+Terima kasih telah berkontribusi untuk **HEAVY CRAFT**! Kami menyambut baik kontribusi Anda untuk mengembangkan website komunitas ini agar menjadi lebih baik.
 
----
+## Cara Berkontribusi
 
-## 🚀 Cara Berkontribusi
-
-### 1. Melaporkan Bug atau Masalah (Issues)
-Jika Anda menemukan error, kendala visual, atau masalah keamanan:
-- Buka tab **Issues** di repositori GitHub kami.
-- Jelaskan bug secara detail (langkah-langkah reproduksi, ekspektasi hasil, dan screenshot jika ada).
-
-### 2. Mengusulkan Fitur Baru
-- Buka tab **Issues** dan pilih kategori *Feature Request*.
-- Jelaskan mengapa fitur tersebut berguna untuk server komunitas Heavy Craft.
-
-### 3. Mengirimkan Pull Request (PR)
-Jika Anda ingin memperbaiki kode secara langsung:
-1. Fork repositori ini ke akun GitHub Anda.
-2. Buat branch baru dari branch utama (`main`):
+1. **Fork Repositori**: Buat salinan repositori ini ke akun GitHub Anda.
+2. **Kloning secara Lokal**: Klon repositori Anda ke komputer lokal:
    ```bash
-   git checkout -b fitur/nama-fitur-anda
+   git clone https://github.com/username/heavycraft-web.git
    ```
-3. Lakukan perubahan kode. Pastikan Anda mengikuti standar penulisan kode berikut:
-   - Gunakan TypeScript dengan tipe data yang ketat (*strict types*).
-   - Gunakan kelas utilitas Tailwind CSS v4 secara rapi.
-   - Pastikan kode telah lolos linter dengan menjalankan `npm run lint`.
-4. Commit perubahan Anda dengan pesan yang jelas dan deskriptif:
+3. **Buat Branch Baru**: Gunakan nama branch yang jelas dan relevan:
    ```bash
-   git commit -m "Tambah: Fitur salin port untuk Bedrock Edition"
+   git checkout -b fitur/fitur-baru
    ```
-5. Push branch Anda ke GitHub:
+4. **Lakukan Perubahan**: Pastikan kode rapi, terstruktur, dan mengikuti standar TypeScript serta Tailwind CSS v4.
+5. **Uji Aplikasi**: Jalankan `npm run lint` dan `npm run build` untuk memastikan tidak ada error sebelum submit.
+6. **Commit & Push**:
    ```bash
-   git push origin fitur/nama-fitur-anda
+   git commit -m "Tambah fitur: Deskripsi singkat"
+   git push origin fitur/fitur-baru
    ```
-6. Buka halaman repositori asli dan buat **Pull Request** baru.
+7. **Buat Pull Request (PR)**: Kirimkan Pull Request ke repositori utama kami untuk ditinjau oleh kontributor inti.
 
----
-
-## 🎨 Pedoman Desain & Kode
-- **Aesthetic First**: Gunakan warna aksen cyan/emerald dengan latar belakang gelap gelap sesuai identitas visual Heavy Craft.
-- **Responsive**: Uji setiap komponen baru pada perangkat seluler dan desktop.
-- **Performa**: Optimasi pemuatan aset gambar dengan format `.webp` atau `.jpg` yang terkompresi.
-
-Jika ada pertanyaan lebih lanjut seputar pengembangan, silakan hubungi pengembang utama di WhatsApp **0895602592430 (RAN DEV)**.
+## Aturan Gaya Penulisan Kode
+- Gunakan komponen fungsional React (Functional Components) dengan Hooks.
+- Pertahankan konfigurasi di `/src/config/site.ts` tanpa melakukan hardcode langsung di komponen UI.
+- Gunakan utilitas Tailwind CSS v4 untuk penyesuaian visual.

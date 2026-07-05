@@ -1,28 +1,13 @@
 # Kebijakan Keamanan (Security Policy)
 
-Kami sangat berkomitmen untuk menjaga keamanan data pengguna, stabilitas website, serta integritas server Minecraft Heavy Craft dari segala bentuk ancaman siber.
+Kami mengutamakan keamanan dan integritas data seluruh anggota komunitas **HEAVY CRAFT**. Jika Anda menemukan kerentanan keamanan atau exploit berbahaya di website atau sistem server kami, mohon laporkan segera dengan cara berikut.
 
----
+## Melaporkan Kerentanan
 
-## 🛡️ Versi yang Didukung
-Kami secara aktif memberikan pembaruan keamanan dan perbaikan bug untuk versi berikut:
+**PENTING: Jangan mempublikasikan kerentanan secara terbuka di publik (seperti di GitHub Issue atau obrolan publik global).**
 
-| Versi | Didukung |
-| :--- | :--- |
-| v1.0.x (Terbaru) |  Ya |
-| v0.9.x (Beta) |  Tidak |
+Silakan laporkan masalah keamanan secara privat ke kontak pengembang atau admin kami:
+- **WhatsApp Pengembang (RAN DEV)**: `0895602592430`
+- **WhatsApp Admin (HEAVY CRAFT)**: `085768060891`
 
----
-
-## 📝 Cara Melaporkan Kerentanan Keamanan
-
-**PENTING:** Tolong **jangan** publikasikan kerentanan keamanan (vulnerabilities) yang Anda temukan di kolom komentar publik atau menu Issues GitHub. Laporkan secara privat demi melindungi keamanan data komunitas pemain kami.
-
-Langkah-langkah melaporkan masalah keamanan:
-1. Hubungi pengembang utama secara langsung melalui pesan privat WhatsApp di nomor **0895602592430 (RAN DEV)** atau Admin Utama di **085768060891**.
-2. Jelaskan detail kerentanan yang ditemukan, termasuk:
-   - Deskripsi masalah keamanan.
-   - Langkah-langkah atau kode bukti konsep (*Proof of Concept / PoC*) untuk memicu masalah tersebut.
-   - Potensi dampak buruk jika masalah tersebut dieksploitasi oleh pihak yang tidak bertanggung jawab.
-3. Kami berkomitmen untuk merespons laporan Anda dalam waktu maksimal **24 jam** setelah pesan diterima.
-4. Kami akan segera merilis perbaikan patch keamanan dalam waktu sesingkat-singkatnya dan memberikan kredit penghargaan kepada Anda atas kontribusi pelaporan tersebut.
+Kami akan menanggapi laporan Anda secepat mungkin dan bekerja sama untuk menyelesaikan masalah tersebut sebelum mengumumkannya ke publik. Terima kasih atas partisipasi aktif Anda dalam menjaga ekosistem Heavy Craft yang aman!

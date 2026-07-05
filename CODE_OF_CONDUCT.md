@@ -1,31 +1,19 @@
 # Kode Etik Komunitas (Code of Conduct)
 
-## 1. Komitmen Kami
-Sebagai kontributor, pengembang, dan anggota komunitas dari proyek website **HEAVY CRAFT**, kami berkomitmen untuk menciptakan lingkungan yang ramah, aman, bebas dari pelecehan, serta inklusif bagi semua orang, tanpa memandang jenis kelamin, identitas gender, orientasi seksual, disabilitas, penampilan fisik, ras, agama, atau kemampuan teknis.
+Kami berkomitmen untuk menyediakan lingkungan yang aman, inklusif, dan ramah bagi semua kontributor dan pemain di komunitas **HEAVY CRAFT**.
 
----
+## Standar Kami
 
-## 2. Standar Perilaku Kami
-Kami menghargai kontribusi yang positif demi kemajuan server komunitas. Perilaku yang mendukung terciptanya lingkungan yang sehat meliputi:
-- Menggunakan bahasa yang sopan, ramah, dan inklusif.
-- Menghormati perbedaan pendapat dan sudut pandang anggota lain.
-- Memberikan dan menerima kritik yang membangun secara lapang dada.
-- Fokus pada hal-hal terbaik demi kemajuan komunitas secara kolektif.
-- Bersikap empati dan ramah terhadap sesama pemain, pengembang, maupun staff.
+Untuk mendukung terciptanya lingkungan yang produktif dan menyenangkan, kami mengharapkan setiap kontributor dan pemain untuk:
+- Menggunakan bahasa yang santun, inklusif, dan saling menghargai.
+- Menghormati perbedaan pandangan, latar belakang, dan keahlian orang lain.
+- Bermain secara jujur, adil, dan mematuhi peraturan resmi yang berlaku di server.
+- Terbuka terhadap umpan balik yang konstruktif dari sesama kontributor.
 
-Perilaku yang **tidak dapat ditoleransi** meliputi:
-- Penggunaan bahasa atau gambar berbau pornografi (18+), SARA, kasar, atau toxic.
-- Tindakan provokatif, penghinaan pribadi, atau komentar merendahkan.
-- Pelecehan secara daring (online harassment) dalam bentuk apa pun.
-- Mempublikasikan informasi pribadi milik orang lain tanpa izin eksplisit (doxing).
-- Perilaku lain yang secara wajar dianggap tidak pantas dalam lingkungan profesional atau komunitas sosial.
+Tindakan atau perilaku yang tidak dapat ditoleransi meliputi:
+- Segala bentuk pelecehan, intimidasi, diskriminasi (terkait SARA, gender, orientasi, dll.).
+- Penggunaan bahasa toxic, kasar, atau tidak pantas di area publik maupun kanal komunikasi.
+- Menyebarkan hoax, exploit, cheat, atau informasi sensitif tanpa persetujuan.
 
----
-
-## 3. Tanggung Jawab Penegakan Aturan
-Staff server Heavy Craft dan pengembang (**RAN DEV**) bertanggung jawab untuk mengklarifikasi standar perilaku yang dapat diterima dan akan mengambil tindakan korektif yang adil dan konsisten jika terjadi pelanggaran terhadap kode etik ini.
-
----
-
-## 4. Pelaporan Pelanggaran
-Jika Anda menyaksikan atau mengalami perilaku yang melanggar Kode Etik ini, harap laporkan segera kepada tim administrasi kami melalui nomor kontak resmi **085768060891 (WhatsApp Admin)**. Semua laporan akan ditinjau secara rahasia dan ditangani dengan serius demi kenyamanan bersama.
+## Penegakan Kode Etik
+Pelanggaran terhadap kode etik ini dapat dilaporkan kepada Admin Heavy Craft melalui WhatsApp di kontak resmi. Pihak moderator berhak mengambil tindakan korektif, termasuk pembatasan akses kontribusi hingga ban permanen di dalam server.

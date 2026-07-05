@@ -1,184 +1,135 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { siteConfig } from "../config/site";
-import { ArrowRight, MessageCircle, Shield, Gamepad2, Info } from "lucide-react";
+import logoImg from "../assets/images/logo_1783279235216.jpg";
+import heroBgImg from "../assets/images/hero_bg_1783279248075.jpg";
+import { MessageSquare, ArrowDown, ExternalLink, ShieldCheck } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
-interface HeroProps {
-  onCopySuccess: (message: string) => void;
-}
-
-export default function Hero({ onCopySuccess }: HeroProps) {
+export default function Hero() {
   const [quoteIndex, setQuoteIndex] = useState(0);
+  const quotes = siteConfig.server.slogans.quotes;
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setQuoteIndex((prev) => (prev + 1) % siteConfig.server.slogans.quotes.length);
+    const timer = setInterval(() => {
+      setQuoteIndex((prev) => (prev + 1) % quotes.length);
     }, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const scrollToKoneksi = () => {
-    const element = document.getElementById("koneksi");
-    if (element) {
-      const offset = 120;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.scrollY - offset;
-      window.scrollTo({ top: offsetPosition, behavior: "smooth" });
-    }
-  };
+    return () => clearInterval(timer);
+  }, [quotes.length]);
 
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden py-20">
-      {/* 1. Cinematic Background Image with Dark Overlay */}
+    <section className="relative flex min-h-[92vh] w-full items-center justify-center overflow-hidden py-20 px-4 sm:px-6 lg:px-8">
+      {/* Background Image with Dark Vignette Overlay */}
       <div className="absolute inset-0 z-0">
         <img
-          src={siteConfig.heroBgPath}
-          alt="Cinematic Minecraft World Background"
-          className="w-full h-full object-cover scale-105 filter brightness-[0.35]"
+          src={heroBgImg}
+          alt="Heavy Craft Cinematic Landscape"
           referrerPolicy="no-referrer"
+          className="h-full w-full object-cover object-center scale-105 animate-[pulse_8s_infinite_alternate]"
         />
-        {/* Multilayer gradient overlays */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f19] via-slate-950/40 to-[#0b0f19]/80" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0b0f19]/80 via-transparent to-[#0b0f19]/80" />
-        {/* Cyberpunk grid overlay for text-glow feeling */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(18,24,38,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(18,24,38,0.1)_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_60%,transparent_100%)] opacity-30" />
+        {/* Dark overlays to ensure full legibility */}
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-obsidian via-brand-obsidian/80 to-brand-obsidian/30"></div>
+        <div className="absolute inset-0 bg-radial-gradient from-transparent to-brand-obsidian/90"></div>
       </div>
 
-      {/* 2. Interactive Ambient Particles/Floating Orbs */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none animate-pulse duration-[8s]" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none animate-pulse duration-[10s]" />
+      {/* Grid Overlay */}
+      <div className="absolute inset-0 z-10 grid-bg opacity-30"></div>
 
-      {/* 3. Main Center Content Container */}
-      <div className="relative z-10 max-w-4xl mx-auto px-4 text-center flex flex-col items-center">
-        {/* Floating Logo with staggered slide-up */}
+      {/* Content Container */}
+      <div className="relative z-20 mx-auto flex max-w-4xl flex-col items-center text-center">
+        {/* Animated Badge */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mb-6 flex items-center gap-1.5 rounded-full border border-brand-cyan/30 bg-brand-cyan/10 px-3.5 py-1 text-xs font-bold text-brand-cyan tracking-wider uppercase font-mono"
+        >
+          <ShieldCheck className="h-3.5 w-3.5" />
+          Server Resmi Indonesia
+        </motion.div>
+
+        {/* Server Logo */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="relative w-28 h-28 md:w-36 md:h-36 mb-6 rounded-2xl overflow-hidden border-2 border-cyan-400/40 bg-slate-950/60 p-1 shadow-2xl box-glow-cyan"
+          transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
+          className="relative mb-6 h-36 w-36 overflow-hidden rounded-2xl border-2 border-brand-cyan/30 bg-brand-charcoal p-1.5 shadow-2xl shadow-brand-cyan/20"
         >
           <img
-            src={siteConfig.logoPath}
-            alt={siteConfig.name}
-            className="w-full h-full object-cover rounded-xl"
+            src={logoImg}
+            alt="Heavy Craft Logo"
             referrerPolicy="no-referrer"
+            className="h-full w-full object-cover rounded-xl"
           />
         </motion.div>
 
-        {/* Server Subheader/Intro badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 border border-slate-850 text-xs text-slate-300 font-medium mb-4 tracking-wide shadow-sm"
-        >
-          <span className="flex h-2 w-2 relative">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
-          </span>
-          Minecraft Indonesia Server • Survival & Economy
-        </motion.div>
-
-        {/* Brand Name Heading */}
+        {/* Server Title */}
         <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.7 }}
-          className="font-display font-black text-4xl sm:text-5xl md:text-7xl tracking-tighter text-white mb-3"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="font-display text-4xl font-extrabold tracking-wider text-white sm:text-6xl md:text-7xl"
         >
-          <span className="bg-gradient-to-r from-white via-cyan-100 to-cyan-400 bg-clip-text text-transparent">
-            {siteConfig.name}
+          <span className="bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
+            HEAVY
+          </span>{" "}
+          <span className="bg-gradient-to-r from-brand-cyan to-brand-emerald bg-clip-text text-transparent text-glow-cyan">
+            CRAFT
           </span>
         </motion.h1>
 
-        {/* Slogan Text */}
+        {/* Subtitle/Slogan */}
         <motion.p
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.6 }}
-          className="text-lg md:text-2xl font-semibold tracking-wide text-cyan-300/90 font-sans mb-6"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="mt-4 font-display text-base font-medium tracking-wide text-slate-300 sm:text-xl md:text-2xl"
         >
           {siteConfig.server.slogans.hero}
         </motion.p>
 
-        {/* Rotating Quotes Container */}
-        <div className="h-12 flex items-center justify-center mb-10 overflow-hidden px-4">
+        {/* Changing Quotes Block */}
+        <div className="mt-8 min-h-[50px] w-full px-4 flex items-center justify-center">
           <AnimatePresence mode="wait">
             <motion.p
               key={quoteIndex}
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -15 }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="text-xs sm:text-sm text-slate-400 max-w-lg italic font-sans font-light leading-relaxed text-center"
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.5 }}
+              className="font-sans italic text-sm text-brand-cyan/80 md:text-base max-w-lg leading-relaxed"
             >
-              &ldquo;{siteConfig.server.slogans.quotes[quoteIndex]}&rdquo;
+              "{quotes[quoteIndex]}"
             </motion.p>
           </AnimatePresence>
         </div>
 
-        {/* Two Interactive Call-To-Action (CTA) Buttons */}
+        {/* Action Buttons (CTAs) */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.7 }}
-          className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mb-16"
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 w-full px-4"
         >
+          {/* Main CTA - WhatsApp Admin */}
           <a
-            href={`https://wa.me/${siteConfig.contacts.adminWhatsapp}?text=Halo%20Admin%20Heavy%20Craft,%20saya%20ingin%20membeli%20rank%20di%20server`}
+            href={`https://wa.me/${siteConfig.contacts.adminWhatsapp}?text=Halo%20Admin%20Heavy%20Craft,%20saya%20tertarik%20untuk%20membeli%20rank%20di%20server`}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-8 py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold tracking-wide shadow-xl shadow-cyan-500/15 flex items-center justify-center gap-2 group transition-all duration-300 scale-100 hover:scale-[1.03] text-sm md:text-base"
+            className="group flex w-full sm:w-auto items-center justify-center gap-2.5 rounded-xl bg-gradient-to-r from-brand-cyan to-brand-emerald p-4 text-sm font-bold text-brand-obsidian hover:shadow-xl hover:shadow-brand-cyan/20 hover:scale-102 transition-all duration-300"
           >
-            <MessageCircle size={18} className="fill-current text-slate-950" />
-            <span>Hubungi Admin via WA</span>
-            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+            <MessageSquare className="h-4.5 w-4.5" />
+            Hubungi Admin via WA
+            <ExternalLink className="h-3.5 w-3.5 opacity-70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </a>
-          <button
-            onClick={scrollToKoneksi}
-            className="px-8 py-4 rounded-xl bg-slate-900/95 hover:bg-slate-850 border border-slate-800 text-slate-200 hover:text-white font-bold tracking-wide flex items-center justify-center gap-2 transition-all duration-300 scale-100 hover:scale-[1.03] text-sm md:text-base cursor-pointer"
+
+          {/* Secondary CTA - Learn More */}
+          <a
+            href="#tentang"
+            className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 p-4 text-sm font-bold text-white transition-all duration-300"
           >
-            <Gamepad2 size={18} className="text-slate-400" />
-            <span>Mulai Bermain</span>
-          </button>
-        </motion.div>
-
-        {/* Minecraft Survival stats or general modes representation */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6, duration: 0.8 }}
-          className="grid grid-cols-2 md:grid-cols-3 gap-4 w-full max-w-2xl text-left border-t border-slate-900/60 pt-8"
-        >
-          <div className="bg-slate-950/40 backdrop-blur-sm p-4 rounded-xl border border-slate-900 flex items-start gap-3">
-            <div className="p-2 rounded-lg bg-cyan-950/30 text-cyan-400 border border-cyan-900/20">
-              <Gamepad2 size={16} />
-            </div>
-            <div>
-              <p className="text-[10px] uppercase tracking-wider text-slate-500 font-mono">Game Mode</p>
-              <h3 className="text-sm font-bold text-slate-300">Survival & Economy</h3>
-            </div>
-          </div>
-
-          <div className="bg-slate-950/40 backdrop-blur-sm p-4 rounded-xl border border-slate-900 flex items-start gap-3">
-            <div className="p-2 rounded-lg bg-emerald-950/30 text-emerald-400 border border-emerald-900/20">
-              <Shield size={16} />
-            </div>
-            <div>
-              <p className="text-[10px] uppercase tracking-wider text-slate-500 font-mono">Community</p>
-              <h3 className="text-sm font-bold text-slate-300">Solid & Active</h3>
-            </div>
-          </div>
-
-          <div className="col-span-2 md:col-span-1 bg-slate-950/40 backdrop-blur-sm p-4 rounded-xl border border-slate-900 flex items-start gap-3">
-            <div className="p-2 rounded-lg bg-indigo-950/30 text-indigo-400 border border-indigo-900/20">
-              <span className="text-xs font-black font-mono">24/7</span>
-            </div>
-            <div>
-              <p className="text-[10px] uppercase tracking-wider text-slate-500 font-mono">Server Uptime</p>
-              <h3 className="text-sm font-bold text-slate-300">Always Online</h3>
-            </div>
-          </div>
+            <ArrowDown className="h-4.5 w-4.5 animate-bounce" />
+            Lihat Informasi Server
+          </a>
         </motion.div>
       </div>
     </section>

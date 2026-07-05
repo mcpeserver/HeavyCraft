@@ -3,23 +3,19 @@ export const siteConfig = {
   title: "Heavy Craft Community - Survival, Creative, & Roleplay Minecraft Server",
   description: "HEAVY CRAFT adalah server Minecraft yang berfokus pada survival, creative, dan roleplay. Bangun, bertahan, dan jadilah bagian dari komunitas yang solid dan berkembang.",
   domain: "heavycraft.my.id",
-  logoPath: "/src/assets/images/logo.jpg",
-  heroBgPath: "/src/assets/images/hero_bg.jpg",
   server: {
     name: "HEAVY CRAFT",
     javaIp: "play.heavycraft.my.id:25565",
-    javaIpOnly: "play.heavycraft.my.id",
-    javaPort: "25565",
     bedrockIp: "play.heavycraft.my.id",
     port: 19127,
     modes: ["Survival", "Economy"],
     status: "ON",
     slogans: {
-      hero: "Server Survival & Economy Indonesia",
+      hero: "Build Strong, Survive Hard, Become Legendary.",
       quotes: [
-        "Main survival klasik bersama teman dengan ekonomi yang seimbang.",
-        "Bangun kota, berdagang, dan berteman di komunitas kami.",
-        "Server online 24 jam dengan performa stabil dan bebas lag."
+        "Kesuksesan tidak dibangun dalam sehari, tetapi dimulai dari satu langkah kecil.",
+        "Bangun, bertahan, dan jadilah legenda.",
+        "Bersama kita lebih kuat, bersama kita lebih hebat."
       ]
     }
   },
@@ -29,36 +25,35 @@ export const siteConfig = {
   developer: {
     name: "RAN DEV",
     whatsapp: "0895602592430",
-    headerPitch: "Ingin buat website komunitas yang keren dan mudah dipahami seperti ini? Hubungi kami!",
-    portfolioUrl: "https://sfl.gl/x2ic"
+    headerPitch: "Ingin buat website komunitas yang keren dan mudah dipahami seperti ini? Hubungi kami!"
   },
   otherServers: [
     {
-      id: "lumina",
-      name: "Lumina Network",
-      mode: "Survival RPG & Towny",
-      accent: "from-purple-500 to-indigo-600",
-      description: "Website server RPG dengan integrasi web store, donasi, dan statistik ranking pemain terpopuler.",
-      stats: "Online • 142 Players",
-      url: "https://sfl.gl/x2ic"
+      name: "KRAKATOA MC",
+      ip: "play.krakatoamc.xyz",
+      description: "Server Survival Semi-Vanilla dengan sistem cuaca ekstrem, custom item, dan clan war yang sangat aktif.",
+      logoColor: "from-orange-500 to-red-600",
+      accentColor: "orange",
+      theme: "Volcanic Survival",
+      status: "ACTIVE"
     },
     {
-      id: "aetheria",
-      name: "Aetheria Skyblock",
-      mode: "Hardcore Skyblock",
-      accent: "from-cyan-500 to-blue-600",
-      description: "Desain minimalis modern dengan leaderboard pulau teraktif dan fitur claim rewards harian.",
-      stats: "Online • 89 Players",
-      url: "https://sfl.gl/x2ic"
+      name: "MAJAPAHIT RP",
+      ip: "rp.majapahit.net",
+      description: "Server Roleplay bertema kerajaan Nusantara abad pertengahan dengan sistem ekonomi dan kustom job terlengkap.",
+      logoColor: "from-amber-500 to-yellow-600",
+      accentColor: "yellow",
+      theme: "Kingdom Roleplay",
+      status: "ACTIVE"
     },
     {
-      id: "vortex",
-      name: "Vortex SMP",
-      mode: "Vanilla+ & Towny",
-      accent: "from-emerald-500 to-teal-600",
-      description: "Portal pendaftaran whitelist, peta web 3D interaktif, dan galeri foto event mingguan.",
-      stats: "Online • 65 Players",
-      url: "https://sfl.gl/x2ic"
+      name: "NUSA CRAFT",
+      ip: "mc.nusacraft.id",
+      description: "Server Creative & Mini-games lokal tempat berkumpulnya kreator dan arsitek terbaik Indonesia.",
+      logoColor: "from-teal-500 to-emerald-600",
+      accentColor: "emerald",
+      theme: "Creative Sandbox",
+      status: "ACTIVE"
     }
   ]
 };

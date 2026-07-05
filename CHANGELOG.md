@@ -1,19 +1,18 @@
-# Catatan Perubahan (Changelog)
+# Riwayat Perubahan (Changelog)
 
-Semua pembaruan penting, perbaikan bug, dan penambahan fitur pada proyek website landing page **HEAVY CRAFT** akan dicatat dalam dokumen ini secara berkala.
-
----
+Semua perubahan terdokumentasi yang dirilis pada proyek Website Komunitas **HEAVY CRAFT** dicatat di sini.
 
 ## [1.0.0] - 2026-07-05
-### 🚀 Fitur Baru
-- **Desain Landing Page Ultra-Modern**: Menyajikan visual bertema petualangan survival bernuansa pegunungan batu, air terjun jernih, dan pedang berlian cemerlang (Cyan/Emerald/Charcoal).
-- **Sticky Header & Watermark Pengembang**: Integrasi watermark **RAN DEV** di atas navigasi yang terus mengambang mengikuti guliran halaman (*scrolling*).
-- **Rotasi Kutipan Motivasi Dinamis**: Sistem teks *quotes* otomatis berganti berkala pada Hero Section menggunakan Framer Motion.
-- **Showcase Portfolio Komunitas**: Penambahan bagian bento-grid elegan untuk menampilkan 3 website server Minecraft lain yang telah dibuat oleh **RAN DEV** untuk memudahkan calon klien memesan web.
-- **Koneksi IP Cepat**: Modul salin sekali klik untuk IP Java, Bedrock, dan Port dilengkapi notifikasi Toast melayang yang interaktif.
-- **Katalog Rank Donasi**: Desain *pricing card* premium dan transparan dengan tautan pemesanan langsung terhubung ke WhatsApp Admin.
-
-### 🐛 Perbaikan Bug
-- Optimasi pemuatan gambar logo dan background langsung dari direktori sumber terstruktur tanpa menggunakan folder public tambahan untuk kestabilan runtime.
-- Peningkatan tingkat kontras teks tipografi Inter & Space Grotesk demi kenyamanan membaca pengguna di perangkat mobile maupun layar desktop lebar.
-- Penghapusan semua data fiktif (angka player online palsu, testimoni karangan) demi menjaga integritas informasi 100% akurat.
+### Ditambahkan
+- Inisialisasi struktur proyek web modular React + Vite + TypeScript.
+- Integrasi utilitas desain visual modern **Tailwind CSS v4** dengan palet warna obsidian, cyan, emerald, dan aksen kayu.
+- Integrasi animasi halus reveal-on-scroll menggunakan **Framer Motion** (`motion/react`).
+- Komponen top header dan navbar lengket (sticky) terintegrasi dengan watermark pengembang **RAN DEV** dan status indikator live.
+- Komponen Hero berpenampilan sinematik menggunakan logo server kustom dan latar belakang pegunungan Minecraft beresolusi tinggi yang digenerasikan AI.
+- Komponen informasi server (Survival, Economy, Community) dalam grid layout.
+- Grid daftar peraturan server resmi dengan ikon visual representatif.
+- Grid kartu donasi rank server (Newbie hingga Mythic) dengan tombol langsung menautkan ke WhatsApp Admin.
+- Panel salin IP server Java, IP Bedrock, dan Port dalam sekali klik dengan notifikasi toast.
+- Komponen portofolio pameran server lain oleh RAN DEV dengan tautan pemesanan web kustom.
+- Tombol mengambang kembali ke atas (Back to Top) dan indikator scroll horizontal di bagian atas halaman.
+- Konfigurasi Vercel SPA (`vercel.json`) dan kelengkapan repositori GitHub (`LICENSE`, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`).
