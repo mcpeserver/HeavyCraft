@@ -3,8 +3,8 @@ export const siteConfig = {
   title: "Heavy Craft Community - Survival, Creative, & Roleplay Minecraft Server",
   description: "HEAVY CRAFT adalah server Minecraft yang berfokus pada survival, creative, dan roleplay. Bangun, bertahan, dan jadilah bagian dari komunitas yang solid dan berkembang.",
   domain: "heavycraft.my.id",
-  logoPath: "/src/assets/images/logo_1783246804754.jpg",
-  heroBgPath: "/src/assets/images/hero_bg_1783246817884.jpg",
+  logoPath: "/src/assets/images/logo.jpg",
+  heroBgPath: "/src/assets/images/hero_bg.jpg",
   server: {
     name: "HEAVY CRAFT",
     javaIp: "play.heavycraft.my.id:25565",
