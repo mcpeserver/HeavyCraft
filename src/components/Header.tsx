@@ -1,157 +1,240 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "motion/react";
-import { Copy, Check, ShieldAlert, Wifi, Phone } from "lucide-react";
 import { siteConfig } from "../config/site";
+import { Copy, Check, Menu, X, ArrowRight, ShieldCheck, ChevronRight } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
 
 interface HeaderProps {
-  onShowToast: (message: string) => void;
+  onCopySuccess: (message: string) => void;
 }
 
-export default function Header({ onShowToast }: HeaderProps) {
-  const [copied, setCopied] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+export default function Header({ onCopySuccess }: HeaderProps) {
+  const [copiedJava, setCopiedJava] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 30) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setScrolled(window.scrollY > 40);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleCopyIp = async () => {
-    try {
-      await navigator.clipboard.writeText(siteConfig.server.javaIp);
-      setCopied(true);
-      onShowToast("IP Java berhasil disalin ke clipboard!");
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      onShowToast("Gagal menyalin IP, silakan salin manual.");
+  const copyToClipboard = (text: string, isJava: boolean) => {
+    navigator.clipboard.writeText(text);
+    if (isJava) {
+      setCopiedJava(true);
+      setTimeout(() => setCopiedJava(false), 2000);
     }
+    onCopySuccess(`Berhasil menyalin IP: ${text}`);
+  };
+
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const offset = 120; // accounting for sticky header
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.scrollY - offset;
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
+    setMobileMenuOpen(false);
   };
 
   return (
-    <header className="w-full fixed top-0 left-0 z-50 flex flex-col transition-all duration-300 shadow-2xl">
-      {/* Dev Watermark Banner */}
-      <div 
-        className={`w-full bg-linear-to-r from-cyan-950 via-charcoal to-cyan-950 text-cyan-200 text-center font-medium border-b border-cyan-800/30 flex flex-wrap justify-center items-center gap-1.5 transition-all duration-300 ${
-          isScrolled 
-            ? "py-1.5 px-4 text-[11px] md:text-xs" 
-            : "py-2.5 px-4 text-xs md:text-sm shadow-md"
-        }`}
-      >
-        <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-sm bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 font-mono uppercase tracking-wider transition-all duration-300 ${
-          isScrolled ? "text-[8px] px-1 py-0" : "text-[10px]"
-        }`}>
-          Partner Resmi
-        </span>
-        <span className="transition-all duration-300">
-          Developed by <strong className="text-cyan-400 font-semibold">{siteConfig.developer.name}</strong> 
-          {" "}(WhatsApp: <a href={`https://wa.me/${siteConfig.developer.whatsapp}`} target="_blank" rel="noopener noreferrer" className="underline hover:text-cyan-300 font-mono transition-colors">{siteConfig.developer.whatsapp}</a>)
-        </span>
-        
-        {/* Hide extra text and button on scroll to shrink the header beautifully */}
-        {!isScrolled && (
-          <>
-            <span className="hidden md:inline text-cyan-500/50">•</span>
-            <span className="text-slate-300 text-xs hidden md:inline">{siteConfig.developer.headerPitch}</span>
-            <a
-              href={`https://wa.me/${siteConfig.developer.whatsapp}?text=Halo%20Ran%20Dev,%20saya%20tertarik%20untuk%20membuat%20website%20komunitas`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs bg-linear-to-r from-emerald-600 to-green-500 hover:from-emerald-500 hover:to-green-400 text-white font-medium px-3 py-1 rounded-full shadow-lg hover:shadow-green-500/20 transition-all duration-300 ml-2 border border-green-400/20 group animate-pulse hover:animate-none"
-            >
-              <Phone className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
-              Hubungi Kami
-            </a>
-          </>
-        )}
+    <div className="sticky top-0 z-50 w-full flex flex-col">
+      {/* 1. Developer Watermark Bar (RAN DEV) */}
+      <div className="w-full bg-slate-950 border-b border-cyan-500/20 text-slate-300 text-[11px] md:text-xs py-2 px-4 flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-4 font-sans tracking-wide">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-center sm:text-left justify-center sm:justify-start w-full sm:w-auto">
+          <div className="flex items-center gap-1.5 justify-center">
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+            <span>
+              Developed by <a href={`https://wa.me/${siteConfig.developer.whatsapp}?text=Halo%20RAN%20DEV,%20saya%20tertarik%20untuk%20membuat%20website%20komunitas%20Minecraft`} target="_blank" rel="noopener noreferrer" className="text-cyan-400 font-bold hover:underline">{siteConfig.developer.name}</a>
+            </span>
+          </div>
+          <span className="hidden sm:inline text-slate-700">|</span>
+          <a
+            href="https://sfl.gl/x2ic"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 hover:text-cyan-300 transition-all font-medium border border-cyan-500/20"
+          >
+            Lihat Server Lain 🔗
+          </a>
+        </div>
+        <div className="flex items-center justify-center gap-2">
+          <a
+            href={`https://wa.me/${siteConfig.developer.whatsapp}?text=Halo%20RAN%20DEV,%20saya%20tertarik%20untuk%20membuat%20website%20komunitas%20Minecraft`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-slate-400 hover:text-cyan-400 transition-all text-[11px] font-medium flex items-center gap-1 group"
+          >
+            {siteConfig.developer.headerPitch}
+            <ChevronRight size={12} className="group-hover:translate-x-0.5 transition-transform" />
+          </a>
+        </div>
       </div>
 
-      {/* Main Glassmorphism Header */}
-      <div className={`w-full bg-obsidian/90 backdrop-blur-md border-b border-slate-800/60 transition-all duration-300 ${
-        isScrolled ? "py-1 shadow-lg" : "py-0"
-      }`}>
-        <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4 transition-all duration-300 ${
-          isScrolled ? "h-14 md:h-16" : "h-20"
-        }`}>
-          
-          {/* Logo and Brand */}
-          <a href="#beranda" className="flex items-center gap-3 group">
-            <div className={`relative rounded-lg overflow-hidden border border-cyan-500/30 shadow-lg group-hover:border-cyan-400/80 transition-all duration-300 bg-charcoal ${
-              isScrolled ? "w-9 h-9" : "w-12 h-12"
-            }`}>
+      {/* 2. Main Navigation Bar */}
+      <header
+        className={`w-full transition-all duration-300 ${
+          scrolled
+            ? "bg-slate-950/90 backdrop-blur-md py-3 shadow-lg border-b border-slate-800"
+            : "bg-slate-950/50 backdrop-blur-sm py-4 border-b border-slate-900/50"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between">
+          {/* Logo & Brand */}
+          <div className="flex items-center gap-3 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+            <div className="relative w-10 h-10 rounded-lg overflow-hidden border border-cyan-500/30 bg-slate-900 flex items-center justify-center">
               <img
-                src="/logo.png"
-                alt="HEAVY CRAFT Logo"
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                src={siteConfig.logoPath}
+                alt={siteConfig.name}
+                className="w-full h-full object-cover scale-105"
                 referrerPolicy="no-referrer"
               />
             </div>
-            <div className="flex flex-col">
-              <span className={`font-display font-bold tracking-wider bg-linear-to-r from-white via-slate-100 to-cyan-400 bg-clip-text text-transparent group-hover:text-glow-cyan transition-all duration-300 ${
-                isScrolled ? "text-base md:text-lg" : "text-lg md:text-xl"
-              }`}>
+            <div className="flex items-center gap-2">
+              <span className="font-display font-extrabold text-lg md:text-xl tracking-tight bg-gradient-to-r from-white via-slate-100 to-cyan-400 bg-clip-text text-transparent">
                 {siteConfig.name}
               </span>
-              <span className={`text-slate-400 font-mono tracking-widest uppercase transition-all duration-300 ${
-                isScrolled ? "text-[8px]" : "text-[10px]"
-              }`}>
-                Survival & Creative
-              </span>
             </div>
-          </a>
-
-          {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-300">
-            <a href="#beranda" className="hover:text-cyan-400 transition-colors py-2 border-b-2 border-transparent hover:border-cyan-400/50">Beranda</a>
-            <a href="#tentang" className="hover:text-cyan-400 transition-colors py-2 border-b-2 border-transparent hover:border-cyan-400/50">Tentang</a>
-            <a href="#peraturan" className="hover:text-cyan-400 transition-colors py-2 border-b-2 border-transparent hover:border-cyan-400/50">Peraturan</a>
-            <a href="#rank" className="hover:text-cyan-400 transition-colors py-2 border-b-2 border-transparent hover:border-cyan-400/50">Rank & Fitur</a>
-            <a href="#koneksi" className="hover:text-cyan-400 transition-colors py-2 border-b-2 border-transparent hover:border-cyan-400/50">Koneksi</a>
-          </nav>
-
-          {/* Server IP Copy and Status */}
-          <div className="flex items-center gap-3">
-            {/* Server Status Indicator */}
-            <div className={`hidden sm:flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-full font-mono transition-all duration-300 ${
-              isScrolled ? "text-[10px] px-2 py-1" : "text-xs px-3 py-1.5"
-            }`}>
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-              </span>
-              STATUS: <strong className="font-bold">{siteConfig.server.status}</strong>
-            </div>
-
-            {/* Quick Copy Button */}
-            <button
-              onClick={handleCopyIp}
-              className={`relative inline-flex items-center gap-2 bg-linear-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-semibold rounded-lg shadow-lg hover:shadow-cyan-500/20 border border-cyan-400/20 active:scale-95 transition-all duration-300 group cursor-pointer ${
-                isScrolled ? "text-[11px] px-3.5 py-1.5" : "text-xs px-4 py-2 md:py-2.5"
-              }`}
-            >
-              {copied ? (
-                <>
-                  <Check className="w-3.5 h-3.5 text-green-300 animate-bounce" />
-                  <span className="font-mono">Copied!</span>
-                </>
-              ) : (
-                <>
-                  <Copy className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
-                  <span className="hidden sm:inline">Salin IP Java</span>
-                  <span className="sm:hidden font-mono">play.heavycraft.my.id</span>
-                </>
-              )}
-            </button>
           </div>
 
+          {/* Desktop Navigation Links */}
+          <nav className="hidden lg:flex items-center gap-7 text-sm font-medium text-slate-300">
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className="hover:text-cyan-400 transition-all cursor-pointer relative py-1"
+            >
+              Home
+            </button>
+            <button
+              onClick={() => scrollToSection("tentang")}
+              className="hover:text-cyan-400 transition-all cursor-pointer relative py-1"
+            >
+              Tentang
+            </button>
+            <button
+              onClick={() => scrollToSection("rules")}
+              className="hover:text-cyan-400 transition-all cursor-pointer relative py-1"
+            >
+              Peraturan
+            </button>
+            <button
+              onClick={() => scrollToSection("rank")}
+              className="hover:text-cyan-400 transition-all cursor-pointer relative py-1"
+            >
+              Rank & Fitur
+            </button>
+            <button
+              onClick={() => scrollToSection("koneksi")}
+              className="hover:text-cyan-400 transition-all cursor-pointer relative py-1"
+            >
+              Koneksi Server
+            </button>
+          </nav>
+
+          {/* Action Button: Copy Java IP */}
+          <div className="hidden lg:flex items-center gap-3">
+            <button
+              onClick={() => copyToClipboard(siteConfig.server.javaIpOnly, true)}
+              className="px-4 py-2 rounded-lg bg-slate-900 hover:bg-slate-850 border border-cyan-500/20 text-xs font-mono font-bold flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition-all duration-200 shadow-sm shadow-cyan-950/20 hover:border-cyan-500/40"
+            >
+              <span>{siteConfig.server.javaIpOnly}</span>
+              {copiedJava ? <Check size={14} className="text-emerald-400" /> : <Copy size={14} />}
+            </button>
+            <a
+              href={`https://wa.me/${siteConfig.contacts.adminWhatsapp}?text=Halo%20Admin%20Heavy%20Craft,%20saya%20ingin%20membeli%20rank%20di%20server`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs shadow-md shadow-cyan-500/10 hover:shadow-cyan-500/20 transition-all duration-200"
+            >
+              Beli Rank
+            </a>
+          </div>
+
+          {/* Mobile Menu Trigger */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden p-2 text-slate-400 hover:text-white rounded-lg hover:bg-slate-900 border border-slate-800 transition-all"
+          >
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
         </div>
-      </div>
-    </header>
+      </header>
+
+      {/* Mobile Drawer */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="lg:hidden w-full bg-slate-950 border-b border-slate-800 shadow-xl overflow-hidden font-sans"
+          >
+            <div className="px-4 py-4 flex flex-col gap-3 text-sm font-semibold">
+              <button
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                  setMobileMenuOpen(false);
+                }}
+                className="w-full text-left py-2 px-3 rounded-lg hover:bg-slate-900 hover:text-cyan-400 text-slate-300 transition-all"
+              >
+                Home
+              </button>
+              <button
+                onClick={() => scrollToSection("tentang")}
+                className="w-full text-left py-2 px-3 rounded-lg hover:bg-slate-900 hover:text-cyan-400 text-slate-300 transition-all"
+              >
+                Tentang Server
+              </button>
+              <button
+                onClick={() => scrollToSection("rules")}
+                className="w-full text-left py-2 px-3 rounded-lg hover:bg-slate-900 hover:text-cyan-400 text-slate-300 transition-all"
+              >
+                Peraturan
+              </button>
+              <button
+                onClick={() => scrollToSection("rank")}
+                className="w-full text-left py-2 px-3 rounded-lg hover:bg-slate-900 hover:text-cyan-400 text-slate-300 transition-all"
+              >
+                Rank & Fitur
+              </button>
+              <button
+                onClick={() => scrollToSection("koneksi")}
+                className="w-full text-left py-2 px-3 rounded-lg hover:bg-slate-900 hover:text-cyan-400 text-slate-300 transition-all"
+              >
+                Koneksi Server
+              </button>
+
+              <hr className="border-slate-800 my-1" />
+
+              {/* Mobile CTA */}
+              <div className="grid grid-cols-2 gap-2 mt-1">
+                <button
+                  onClick={() => copyToClipboard(siteConfig.server.javaIpOnly, true)}
+                  className="w-full py-2.5 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center gap-1.5 font-mono text-xs text-slate-300 active:bg-slate-850"
+                >
+                  <Copy size={12} />
+                  <span>Salin IP</span>
+                </button>
+                <a
+                  href={`https://wa.me/${siteConfig.contacts.adminWhatsapp}?text=Halo%20Admin%20Heavy%20Craft,%20saya%20ingin%20membeli%20rank`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2.5 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 text-xs font-bold flex items-center justify-center gap-1.5"
+                >
+                  <span>Beli Rank</span>
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }

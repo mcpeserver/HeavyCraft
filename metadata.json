@@ -1,6 +1,6 @@
 {
-  "name": "HEAVY CRAFT",
-  "description": "Heavy Craft Community - Survival, Creative, & Roleplay Minecraft Server. Build Strong, Survive Hard, Become Legendary.",
+  "name": "Heavy Craft",
+  "description": "Heavy Craft Community - Survival, Creative, & Roleplay Minecraft Server",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

@@ -1,193 +1,178 @@
 import React, { useState } from "react";
-import { motion } from "motion/react";
-import { Monitor, Smartphone, Copy, Check, ExternalLink, HelpCircle } from "lucide-react";
 import { siteConfig } from "../config/site";
+import { Copy, Check, Server, Smartphone, Info, ShieldCheck } from "lucide-react";
+import { motion } from "motion/react";
 
-interface ConnectionProps {
-  onShowToast: (message: string) => void;
+interface ConnectionSectionProps {
+  onCopySuccess: (message: string) => void;
 }
 
-export default function ConnectionSection({ onShowToast }: ConnectionProps) {
-  const [copiedField, setCopiedField] = useState<string | null>(null);
+export default function ConnectionSection({ onCopySuccess }: ConnectionSectionProps) {
+  const [copiedJava, setCopiedJava] = useState(false);
+  const [copiedBedrock, setCopiedBedrock] = useState(false);
+  const [copiedPort, setCopiedPort] = useState(false);
 
-  const handleCopy = async (text: string, fieldName: string) => {
-    try {
-      await navigator.clipboard.writeText(text);
-      setCopiedField(fieldName);
-      onShowToast(`${fieldName} berhasil disalin ke clipboard!`);
-      setTimeout(() => setCopiedField(null), 2000);
-    } catch (err) {
-      onShowToast("Gagal menyalin, silakan ketik manual.");
+  const handleCopy = (text: string, type: "java" | "bedrock" | "port") => {
+    navigator.clipboard.writeText(text);
+    if (type === "java") {
+      setCopiedJava(true);
+      setTimeout(() => setCopiedJava(false), 2000);
+      onCopySuccess(`IP Java berhasil disalin: ${text}`);
+    } else if (type === "bedrock") {
+      setCopiedBedrock(true);
+      setTimeout(() => setCopiedBedrock(false), 2000);
+      onCopySuccess(`IP Bedrock berhasil disalin: ${text}`);
+    } else if (type === "port") {
+      setCopiedPort(true);
+      setTimeout(() => setCopiedPort(false), 2000);
+      onCopySuccess(`Port Bedrock berhasil disalin: ${text}`);
     }
   };
 
   return (
-    <section id="koneksi" className="py-20 bg-charcoal/50 relative overflow-hidden">
-      {/* Background decorations */}
-      <div className="absolute top-1/2 left-0 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-80 h-80 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none" />
+    <section id="koneksi" className="py-24 relative overflow-hidden bg-slate-950/40 border-t border-slate-900">
+      {/* Background Orbs */}
+      <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-cyan-950/10 rounded-full blur-[110px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        {/* Section Heading */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-xs font-mono uppercase tracking-widest text-cyan-400 bg-cyan-950/40 border border-cyan-800/30 px-3 py-1 rounded-full">
-            Koneksi Server
+      <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
+        <div className="text-center max-w-2xl mx-auto mb-16">
+          <span className="text-xs uppercase tracking-widest text-cyan-400 font-mono font-bold block mb-3">
+            Cara Bergabung & Bermain
           </span>
-          <h2 className="font-display font-bold text-3xl md:text-5xl text-white mt-4 mb-6 tracking-tight">
-            Cara Bergabung ke <span className="text-glow-cyan text-cyan-400">HEAVY CRAFT</span>
+          <h2 className="font-display font-extrabold text-3xl md:text-5xl tracking-tight text-white mb-4">
+            Sambungkan Ke Server
           </h2>
-          <p className="text-slate-400 text-sm md:text-base leading-relaxed">
-            Dukung permainan lintas platform! Anda bisa bermain menggunakan Minecraft Java (PC) maupun Minecraft Bedrock (Android, iOS, Console) secara bersamaan.
+          <div className="w-16 h-1 bg-cyan-500 mx-auto rounded-full mb-6" />
+          <p className="text-sm md:text-base text-slate-400 leading-relaxed font-sans">
+            Heavy Craft mendukung koneksi untuk kedua edisi game Minecraft (<span className="text-white font-semibold">Java Edition</span> untuk PC dan <span className="text-white font-semibold">Bedrock Edition</span> untuk HP/Console/Win10). Klik ikon salin di bawah ini untuk menyalin info secara instan.
           </p>
-          <div className="mt-6 flex justify-center">
-            <div className="w-16 h-1 bg-linear-to-r from-cyan-500 to-blue-500 rounded-full" />
+        </div>
+
+        {/* Dynamic Connection Info Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
+          {/* 1. Java Edition Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="p-6 md:p-8 rounded-2xl bg-slate-900/50 border border-slate-850 hover:border-cyan-500/20 transition-all duration-300 flex flex-col justify-between group shadow-lg"
+          >
+            <div>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-3 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                  <Server size={22} />
+                </div>
+                <div>
+                  <span className="text-[10px] uppercase font-mono font-bold text-cyan-400">PC & Laptop</span>
+                  <h3 className="text-base font-bold text-white">Java Edition</h3>
+                </div>
+              </div>
+              <p className="text-xs text-slate-400 leading-relaxed font-sans mb-6">
+                Gunakan Minecraft Java versi terbaru, lalu tambahkan server baru di daftar multiplayer Anda dengan IP di bawah ini.
+              </p>
+            </div>
+
+            <div className="w-full">
+              <label className="text-[10px] font-mono font-bold uppercase text-slate-500 block mb-2">IP SERVER JAVA</label>
+              <button
+                onClick={() => handleCopy(siteConfig.server.javaIp, "java")}
+                className="w-full p-3.5 rounded-xl bg-slate-950 hover:bg-slate-900 border border-slate-850 hover:border-cyan-500/30 font-mono text-xs text-cyan-400 hover:text-cyan-300 font-bold flex items-center justify-between transition-all duration-200 group-hover:bg-slate-950/80 cursor-pointer"
+              >
+                <span className="truncate">{siteConfig.server.javaIp}</span>
+                {copiedJava ? <Check size={14} className="text-emerald-400 shrink-0" /> : <Copy size={14} className="shrink-0" />}
+              </button>
+            </div>
+          </motion.div>
+
+          {/* 2. Bedrock Edition Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1, duration: 0.5 }}
+            className="p-6 md:p-8 rounded-2xl bg-slate-900/50 border border-slate-850 hover:border-cyan-500/20 transition-all duration-300 flex flex-col justify-between group shadow-lg"
+          >
+            <div>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-3 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                  <Smartphone size={22} />
+                </div>
+                <div>
+                  <span className="text-[10px] uppercase font-mono font-bold text-cyan-400">Mobile & Console</span>
+                  <h3 className="text-base font-bold text-white">Bedrock Edition</h3>
+                </div>
+              </div>
+              <p className="text-xs text-slate-400 leading-relaxed font-sans mb-6">
+                Gunakan Minecraft PE/Bedrock versi terbaru di smartphone, lalu buat server eksternal baru dengan IP di bawah ini.
+              </p>
+            </div>
+
+            <div className="w-full">
+              <label className="text-[10px] font-mono font-bold uppercase text-slate-500 block mb-2">IP SERVER BEDROCK</label>
+              <button
+                onClick={() => handleCopy(siteConfig.server.bedrockIp, "bedrock")}
+                className="w-full p-3.5 rounded-xl bg-slate-950 hover:bg-slate-900 border border-slate-850 hover:border-cyan-500/30 font-mono text-xs text-cyan-400 hover:text-cyan-300 font-bold flex items-center justify-between transition-all duration-200 group-hover:bg-slate-950/80 cursor-pointer"
+              >
+                <span className="truncate">{siteConfig.server.bedrockIp}</span>
+                {copiedBedrock ? <Check size={14} className="text-emerald-400 shrink-0" /> : <Copy size={14} className="shrink-0" />}
+              </button>
+            </div>
+          </motion.div>
+
+          {/* 3. Port Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+            className="p-6 md:p-8 rounded-2xl bg-slate-900/50 border border-slate-850 hover:border-cyan-500/20 transition-all duration-300 flex flex-col justify-between group shadow-lg"
+          >
+            <div>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-3 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                  <span className="text-xs font-black font-mono">19127</span>
+                </div>
+                <div>
+                  <span className="text-[10px] uppercase font-mono font-bold text-cyan-400">Koneksi Bedrock</span>
+                  <h3 className="text-base font-bold text-white">Port Server</h3>
+                </div>
+              </div>
+              <p className="text-xs text-slate-400 leading-relaxed font-sans mb-6">
+                Masukkan nomor port khusus berikut pada isian kolom port saat menambahkan server di versi Bedrock/PE.
+              </p>
+            </div>
+
+            <div className="w-full">
+              <label className="text-[10px] font-mono font-bold uppercase text-slate-500 block mb-2">PORT SERVER BEDROCK</label>
+              <button
+                onClick={() => handleCopy(siteConfig.server.port.toString(), "port")}
+                className="w-full p-3.5 rounded-xl bg-slate-950 hover:bg-slate-900 border border-slate-850 hover:border-cyan-500/30 font-mono text-xs text-cyan-400 hover:text-cyan-300 font-bold flex items-center justify-between transition-all duration-200 group-hover:bg-slate-950/80 cursor-pointer"
+              >
+                <span className="truncate">{siteConfig.server.port}</span>
+                {copiedPort ? <Check size={14} className="text-emerald-400 shrink-0" /> : <Copy size={14} className="shrink-0" />}
+              </button>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Step by step help text */}
+        <div className="p-6 rounded-2xl bg-slate-900/20 border border-slate-850 text-slate-400 text-xs leading-relaxed max-w-4xl mx-auto font-sans grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="flex items-start gap-2.5">
+            <Info size={16} className="text-cyan-400 shrink-0 mt-0.5" />
+            <div>
+              <span className="text-slate-200 font-semibold block mb-0.5">Panduan Masuk Java (PC):</span>
+              Buka game Minecraft Java → klik <span className="text-cyan-400">Multiplayer</span> → <span className="text-cyan-400">Add Server</span> → Masukkan Nama & IP Server di atas → Klik <span className="text-cyan-400">Done</span> → Selamat Bermain!
+            </div>
+          </div>
+          <div className="flex items-start gap-2.5">
+            <Info size={16} className="text-cyan-400 shrink-0 mt-0.5" />
+            <div>
+              <span className="text-slate-200 font-semibold block mb-0.5">Panduan Masuk Bedrock (HP):</span>
+              Buka Minecraft PE/HP → Klik <span className="text-cyan-400">Play</span> → Beralih ke tab <span className="text-cyan-400">Servers</span> → Klik <span className="text-cyan-400">Add Server</span> → Masukkan IP & Port di atas → Klik <span className="text-cyan-400">Save/Play</span>!
+            </div>
           </div>
         </div>
-
-        {/* Platforms Connection Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          
-          {/* JAVA EDITION CARD */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="bg-obsidian/80 backdrop-blur-xs rounded-2xl border border-slate-800 p-8 flex flex-col justify-between shadow-xl relative overflow-hidden group hover:border-cyan-500/30 transition-all duration-300"
-          >
-            <div className="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-full blur-xl pointer-events-none group-hover:bg-cyan-500/10 transition-all" />
-            
-            <div>
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center">
-                  <Monitor className="w-6 h-6 text-cyan-400" />
-                </div>
-                <div>
-                  <h3 className="font-display font-bold text-xl text-white">Java Edition</h3>
-                  <span className="text-[10px] text-slate-400 font-mono uppercase">Untuk PC / MAC / Laptop</span>
-                </div>
-              </div>
-
-              <p className="text-sm text-slate-300 mb-8 leading-relaxed">
-                Gunakan launcher resmi atau pihak ketiga favorit Anda, masuk ke menu <strong>Multiplayer</strong>, klik <strong>Add Server</strong>, dan masukkan detail koneksi di bawah ini.
-              </p>
-
-              {/* Java Credentials Details */}
-              <div className="space-y-4 mb-8">
-                {/* Server IP */}
-                <div className="bg-charcoal/60 p-4 rounded-xl border border-slate-800 flex items-center justify-between gap-3">
-                  <div className="flex flex-col">
-                    <span className="text-[10px] text-slate-400 font-mono uppercase">Alamat Server (Server Address)</span>
-                    <span className="text-sm md:text-base font-mono font-semibold text-white tracking-wide">
-                      {siteConfig.server.javaIp.split(":")[0]}
-                    </span>
-                  </div>
-                  <button
-                    onClick={() => handleCopy(siteConfig.server.javaIp.split(":")[0], "IP Server Java")}
-                    className="p-2 bg-obsidian border border-slate-800 hover:border-cyan-400 rounded-lg hover:bg-cyan-950/20 text-slate-300 hover:text-cyan-400 transition-all duration-300 cursor-pointer"
-                    title="Salin Alamat"
-                  >
-                    {copiedField === "IP Server Java" ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
-                  </button>
-                </div>
-
-                {/* Server Port */}
-                <div className="bg-charcoal/60 p-4 rounded-xl border border-slate-800 flex items-center justify-between gap-3">
-                  <div className="flex flex-col">
-                    <span className="text-[10px] text-slate-400 font-mono uppercase">Port Java (Default)</span>
-                    <span className="text-sm md:text-base font-mono font-semibold text-white tracking-wide">
-                      {siteConfig.server.javaIp.split(":")[1] || "25565"}
-                    </span>
-                  </div>
-                  <button
-                    onClick={() => handleCopy(siteConfig.server.javaIp.split(":")[1] || "25565", "Port Server Java")}
-                    className="p-2 bg-obsidian border border-slate-800 hover:border-cyan-400 rounded-lg hover:bg-cyan-950/20 text-slate-300 hover:text-cyan-400 transition-all duration-300 cursor-pointer"
-                    title="Salin Port"
-                  >
-                    {copiedField === "Port Server Java" ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div className="text-xs text-slate-400 flex items-center gap-1.5 font-mono">
-              <HelpCircle className="w-3.5 h-3.5 text-cyan-400" />
-              <span>Kompatibel untuk versi 1.20+ (Rekomendasi terbaru)</span>
-            </div>
-          </motion.div>
-
-          {/* BEDROCK EDITION CARD */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="bg-obsidian/80 backdrop-blur-xs rounded-2xl border border-slate-800 p-8 flex flex-col justify-between shadow-xl relative overflow-hidden group hover:border-blue-500/30 transition-all duration-300"
-          >
-            <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/5 rounded-full blur-xl pointer-events-none group-hover:bg-blue-500/10 transition-all" />
-
-            <div>
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
-                  <Smartphone className="w-6 h-6 text-blue-400" />
-                </div>
-                <div>
-                  <h3 className="font-display font-bold text-xl text-white">Bedrock / Pocket Edition</h3>
-                  <span className="text-[10px] text-slate-400 font-mono uppercase">Untuk Android / iOS / Nintendo Switch</span>
-                </div>
-              </div>
-
-              <p className="text-sm text-slate-300 mb-8 leading-relaxed">
-                Gunakan Minecraft versi mobile (PE) atau konsol Anda, buka tab <strong>Servers</strong>, scroll ke paling bawah, klik <strong>Add Server</strong>, lalu masukkan informasi berikut.
-              </p>
-
-              {/* Bedrock Credentials Details */}
-              <div className="space-y-4 mb-8">
-                {/* Server IP */}
-                <div className="bg-charcoal/60 p-4 rounded-xl border border-slate-800 flex items-center justify-between gap-3">
-                  <div className="flex flex-col">
-                    <span className="text-[10px] text-slate-400 font-mono uppercase">Alamat Server (Server Address)</span>
-                    <span className="text-sm md:text-base font-mono font-semibold text-white tracking-wide">
-                      {siteConfig.server.bedrockIp}
-                    </span>
-                  </div>
-                  <button
-                    onClick={() => handleCopy(siteConfig.server.bedrockIp, "IP Server Bedrock")}
-                    className="p-2 bg-obsidian border border-slate-800 hover:border-blue-400 rounded-lg hover:bg-blue-950/20 text-slate-300 hover:text-blue-400 transition-all duration-300 cursor-pointer"
-                    title="Salin Alamat"
-                  >
-                    {copiedField === "IP Server Bedrock" ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
-                  </button>
-                </div>
-
-                {/* Server Port */}
-                <div className="bg-charcoal/60 p-4 rounded-xl border border-slate-800 flex items-center justify-between gap-3">
-                  <div className="flex flex-col">
-                    <span className="text-[10px] text-slate-400 font-mono uppercase">Port Bedrock (Wajib Diisi)</span>
-                    <span className="text-sm md:text-base font-mono font-semibold text-white tracking-wide">
-                      {siteConfig.server.port}
-                    </span>
-                  </div>
-                  <button
-                    onClick={() => handleCopy(String(siteConfig.server.port), "Port Server Bedrock")}
-                    className="p-2 bg-obsidian border border-slate-800 hover:border-blue-400 rounded-lg hover:bg-blue-950/20 text-slate-300 hover:text-blue-400 transition-all duration-300 cursor-pointer"
-                    title="Salin Port"
-                  >
-                    {copiedField === "Port Server Bedrock" ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div className="text-xs text-slate-400 flex items-center gap-1.5 font-mono">
-              <HelpCircle className="w-3.5 h-3.5 text-blue-400" />
-              <span>Gunakan port {siteConfig.server.port} agar tidak terhubung ke server Bedrock lain</span>
-            </div>
-          </motion.div>
-
-        </div>
-
       </div>
     </section>
   );

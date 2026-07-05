@@ -1,0 +1,15 @@
+# Atur penanganan akhir baris file secara otomatis untuk kolaborasi git lintas sistem operasi (Windows/Linux)
+* text=auto
+
+*.ts text
+*.tsx text
+*.json text
+*.css text
+*.md text
+
+# Pastikan aset gambar selalu diperlakukan sebagai file biner
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.ico binary

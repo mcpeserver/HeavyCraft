@@ -1,126 +1,129 @@
 import React from "react";
+import { ShieldAlert, ShieldCheck, Ban, MessageSquareOff, Trash2, Shuffle, Heart, HeartHandshake } from "lucide-react";
 import { motion } from "motion/react";
-import { ShieldAlert, Ban, MessageSquareOff, UserCheck, FlameKindling, Swords } from "lucide-react";
 
 export default function RulesSection() {
   const rules = [
     {
-      title: "Anti-Cheat & Exploit",
-      text: "Dilarang Cheat, Hack, X-Ray, dan Exploit.",
-      desc: "Segala bentuk modifikasi ilegal atau pencurangan sistem akan dikenakan sanksi banned permanen tanpa toleransi.",
-      icon: <ShieldAlert className="w-8 h-8 text-red-400" />,
-      borderColor: "border-red-500/20 hover:border-red-500/50"
+      id: 1,
+      icon: <Ban className="text-rose-500" size={24} />,
+      type: "Dilarang keras",
+      title: "Dilarang Cheat, Hack, X-Ray, dan Exploit.",
+      description: "Penggunaan klien modifikasi ilegal, cheat, hack, xray, atau eksploitasi bug sistem akan langsung berakibat pada hukuman BAN permanen tanpa kompromi."
     },
     {
-      title: "Etika Chat & Sosial",
-      text: "Dilarang Toxic, 18+, SARA, dan Spam Chat.",
-      desc: "Ciptakan lingkungan obrolan yang ramah, sopan, dan kekeluargaan. Hindari kata kasar dan ujaran kebencian.",
-      icon: <MessageSquareOff className="w-8 h-8 text-red-400" />,
-      borderColor: "border-red-500/20 hover:border-red-500/50"
+      id: 2,
+      icon: <MessageSquareOff className="text-rose-500" size={24} />,
+      type: "Dilarang keras",
+      title: "Dilarang Toxic, 18+, SARA, dan Spam Chat.",
+      description: "Jagalah etika mengobrol. Tindakan rasisme (SARA), pesan tidak senonoh (18+), berkata kasar secara toxic, atau melakukan spam chat sangat dilarang."
     },
     {
-      title: "Anti-Griefing",
-      text: "Dilarang Grief atau merusak bangunan pemain lain.",
-      desc: "Menghormati hak kepemilikan orang lain. Segala bentuk vandalisme (griefing) atau pencurian akan ditindak tegas.",
-      icon: <Ban className="w-8 h-8 text-red-400" />,
-      borderColor: "border-red-500/20 hover:border-red-500/50"
+      id: 3,
+      icon: <Trash2 className="text-rose-500" size={24} />,
+      type: "Dilarang keras",
+      title: "Dilarang Grief atau merusak bangunan pemain lain.",
+      description: "Hormati karya pemain lain. Dilarang merusak, mencuri, membakar, atau memodifikasi bangunan milik pemain lain tanpa izin tertulis."
     },
     {
-      title: "Anti-Scam & Duplication",
-      text: "Dilarang Scam dan Dupe Item.",
-      desc: "Dilarang menduplikasi item melalui bug apapun atau menipu rekan se-server dalam transaksi dagang.",
-      icon: <FlameKindling className="w-8 h-8 text-red-400" />,
-      borderColor: "border-red-500/20 hover:border-red-500/50"
+      id: 4,
+      icon: <Shuffle className="text-rose-500" size={24} />,
+      type: "Dilarang keras",
+      title: "Dilarang Scam dan Dupe Item.",
+      description: "Segala bentuk penipuan perdagangan sesama player (scam) maupun penggandaan item (duplication glitch) akan ditindak tegas dengan hapus data akun."
     },
     {
-      title: "Hormati Rekan Komunitas",
-      text: "Hormati sesama pemain dan staff.",
-      desc: "Staff bertugas menjaga ketertiban server dengan sukarela. Dengarkan arahan staff dan hargai sesama player.",
-      icon: <UserCheck className="w-8 h-8 text-cyan-400" />,
-      borderColor: "border-cyan-500/20 hover:border-cyan-400/50"
+      id: 5,
+      icon: <Heart className="text-emerald-400" size={24} />,
+      type: "Sangat Dianjurkan",
+      title: "Hormati sesama pemain dan staff.",
+      description: "Heavy Craft adalah rumah bersama. Hargai staff yang bertugas menjaga server dan bersikaplah sopan dalam menyambut pemain baru."
     },
     {
-      title: "Fair Play",
-      text: "Bermain dengan fair play.",
-      desc: "Mari nikmati keseruan permainan secara jujur, adil, sehat, dan jalin persahabatan yang langgeng di Heavy Craft.",
-      icon: <Swords className="w-8 h-8 text-cyan-400" />,
-      borderColor: "border-cyan-500/20 hover:border-cyan-400/50"
+      id: 6,
+      icon: <ShieldCheck className="text-emerald-400" size={24} />,
+      type: "Sangat Dianjurkan",
+      title: "Bermain dengan fair play.",
+      description: "Ikuti seluruh event, bangun peradaban, dan lakukan petualangan secara jujur. Nikmati keindahan survival Minecraft sesungguhnya."
     }
   ];
 
   return (
-    <section id="peraturan" className="py-20 bg-obsidian relative overflow-hidden">
-      {/* Background decorations */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-red-500/5 rounded-full blur-3xl pointer-events-none" />
+    <section id="rules" className="py-24 relative overflow-hidden bg-slate-950/40 border-t border-b border-slate-900">
+      {/* Background soft glow */}
+      <div className="absolute top-1/2 right-0 w-80 h-80 bg-rose-950/5 rounded-full blur-[100px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        {/* Section Title */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-xs font-mono uppercase tracking-widest text-red-400 bg-red-950/40 border border-red-850/30 px-3 py-1 rounded-full">
-            Keamanan Server
+      <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
+        <div className="text-center max-w-2xl mx-auto mb-16">
+          <span className="text-xs uppercase tracking-widest text-rose-500 font-mono font-bold block mb-3">
+            Aturan & Regulasi Komunitas
           </span>
-          <h2 className="font-display font-bold text-3xl md:text-5xl text-white mt-4 mb-6 tracking-tight">
-            Peraturan Resmi <span className="text-glow-green text-emerald-400">HEAVY CRAFT</span>
+          <h2 className="font-display font-extrabold text-3xl md:text-5xl tracking-tight text-white mb-4">
+            Peraturan Server <span className="text-rose-500">HEAVY CRAFT</span>
           </h2>
-          <p className="text-slate-400 text-sm md:text-base leading-relaxed">
-            Demi kenyamanan, keamanan, dan keadilan bersama, seluruh warga server wajib mematuhi panduan hukum berikut. Pelanggaran berat akan dikenakan sanksi tegas oleh staff.
+          <div className="w-16 h-1 bg-rose-500 mx-auto rounded-full mb-6" />
+          <p className="text-sm md:text-base text-slate-400 leading-relaxed font-sans">
+            Demi kenyamanan, keamanan, dan keadilan bermain seluruh player, mohon patuhi peraturan komunitas berikut. Pelanggaran berat dapat mengakibatkan sanksi pemblokiran permanen dari server.
           </p>
-          <div className="mt-6 flex justify-center">
-            <div className="w-16 h-1 bg-linear-to-r from-red-500 to-amber-500 rounded-full" />
-          </div>
         </div>
 
         {/* Rules Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {rules.map((rule, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.08 }}
-              className={`bg-charcoal/50 backdrop-blur-xs p-6 rounded-xl border ${rule.borderColor} transition-all duration-300 hover:shadow-lg hover:shadow-red-950/10`}
-            >
-              <div className="flex gap-4 items-start">
-                <div className="p-2.5 rounded-lg bg-obsidian border border-slate-850">
-                  {rule.icon}
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-display font-bold text-base text-slate-100 group-hover:text-white mb-2 uppercase tracking-wide">
+          {rules.map((rule, index) => {
+            const isStrict = rule.id <= 4;
+            return (
+              <motion.div
+                key={rule.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
+                className={`p-6 rounded-2xl bg-slate-900/40 border transition-all duration-300 hover:translate-y-[-2px] flex flex-col justify-between ${
+                  isStrict
+                    ? "border-rose-950/20 hover:border-rose-500/25 shadow-sm hover:shadow-rose-950/10"
+                    : "border-emerald-950/20 hover:border-emerald-500/25 shadow-sm hover:shadow-emerald-950/10"
+                }`}
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-5">
+                    {/* Security Badge Shield */}
+                    <div className="flex items-center gap-2">
+                      <div className={`p-2 rounded-lg bg-slate-950 border ${isStrict ? 'border-rose-900/20' : 'border-emerald-900/20'}`}>
+                        {rule.icon}
+                      </div>
+                      <span className={`text-[10px] uppercase tracking-wider font-mono font-bold ${isStrict ? 'text-rose-400' : 'text-emerald-400'}`}>
+                        {rule.type}
+                      </span>
+                    </div>
+                    {/* Red X-Mark or Green Shield */}
+                    <div className="text-slate-700 font-mono text-xs font-bold">
+                      {isStrict ? (
+                        <span className="px-2 py-0.5 rounded bg-rose-500/10 text-rose-500 border border-rose-500/20">LARANGAN</span>
+                      ) : (
+                        <span className="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">REKOMENDASI</span>
+                      )}
+                    </div>
+                  </div>
+
+                  <h3 className="text-base font-bold text-slate-100 font-sans mb-3 leading-snug">
                     {rule.title}
                   </h3>
-                  <p className="text-sm font-semibold text-rose-300 mb-2 leading-snug">
-                    {rule.text}
-                  </p>
-                  <p className="text-xs text-slate-400 leading-relaxed font-sans">
-                    {rule.desc}
+                  <p className="text-xs text-slate-400 leading-relaxed font-sans font-light">
+                    {rule.description}
                   </p>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
 
-        {/* Warning Callout */}
-        <div className="mt-12 bg-red-950/10 border border-red-900/30 rounded-2xl p-6 text-center max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-4 justify-between">
-          <div className="flex items-center gap-3 text-left">
-            <ShieldAlert className="w-8 h-8 text-red-400 flex-shrink-0" />
-            <div>
-              <h4 className="font-bold text-red-200 text-sm uppercase font-mono">Laporan Pelanggaran</h4>
-              <p className="text-xs text-slate-400">Melihat player yang melanggar hukum di atas? Segera laporkan beserta bukti tangkapan layar/video kepada staff kami.</p>
-            </div>
-          </div>
-          <a
-            href={`https://wa.me/6285768060891?text=Halo%20Admin%20Heavy%20Craft,%20saya%20ingin%20melaporkan%20indikasi%20pelanggaran%20peraturan.`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-red-900/30 hover:bg-red-900/50 text-red-300 hover:text-red-200 border border-red-500/20 text-xs font-bold px-5 py-2.5 rounded-lg transition-all duration-300 flex-shrink-0 cursor-pointer"
-          >
-            Lapor ke Admin
-          </a>
+        {/* Warning Callout Bar */}
+        <div className="mt-12 p-5 rounded-xl bg-slate-900/30 border border-slate-850 text-center max-w-3xl mx-auto flex items-center justify-center gap-3">
+          <ShieldAlert className="text-amber-500 shrink-0" size={18} />
+          <p className="text-xs text-slate-400 leading-relaxed text-left font-sans">
+            <span className="text-amber-500 font-bold">Catatan Penting:</span> Staff kami tidak akan pernah meminta kata sandi akun Anda atau memungut biaya administrasi apa pun di luar daftar rank resmi. Laporkan segala bentuk kecurangan langsung ke Admin via WhatsApp.
+          </p>
         </div>
-
       </div>
     </section>
   );
