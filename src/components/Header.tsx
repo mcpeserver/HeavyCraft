@@ -52,26 +52,26 @@ export default function Header({ onCopyIP }: HeaderProps) {
                       Portofolio Web RAN DEV
                     </p>
                     <div className="flex flex-col gap-1">
-                      {siteConfig.otherServers.map((server) => (
-                        <a
-                          key={server.name}
-                          href="#server-lain"
-                          onClick={() => {
-                            setPortfolioOpen(false);
-                            setTimeout(() => {
-                              const el = document.getElementById("server-lain");
-                              if (el) el.scrollIntoView({ behavior: "smooth" });
-                            }, 100);
-                          }}
-                          className="flex flex-col rounded-lg p-2 hover:bg-white/5 transition-all text-left group/item"
-                        >
-                          <span className="font-display font-bold text-xs flex items-center justify-between text-white group-hover/item:text-brand-cyan transition-colors">
-                            {server.name}
-                            <ArrowUpRight className="h-3 w-3 opacity-0 group-hover/item:opacity-100 transition-opacity" />
-                          </span>
-                          <span className="text-[9px] text-slate-400 font-mono mt-0.5">{server.theme}</span>
-                        </a>
-                      ))}
+                      {siteConfig.otherServers.map((server) => {
+                        const r = encodeURIComponent(`Halo RAN DEV, saya melihat portofolio untuk "${server.name}" (${server.theme}). Saya tertarik untuk membuat website komunitas Minecraft sejenis.`);
+                        const s = `https://wa.me/${siteConfig.developer.whatsapp}?text=${r}`;
+                        return (
+                          <a
+                            key={server.name}
+                            href={s}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => setPortfolioOpen(false)}
+                            className="flex flex-col rounded-lg p-2 hover:bg-white/5 transition-all text-left group/item"
+                          >
+                            <span className="font-display font-bold text-xs flex items-center justify-between text-white group-hover/item:text-brand-cyan transition-colors">
+                              {server.name}
+                              <ArrowUpRight className="h-3 w-3 opacity-0 group-hover/item:opacity-100 transition-opacity" />
+                            </span>
+                            <span className="text-[9px] text-slate-400 font-mono mt-0.5">{server.theme}</span>
+                          </a>
+                        );
+                      })}
                     </div>
                     <div className="mt-2 pt-2 border-t border-white/5">
                       <a

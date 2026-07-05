@@ -6,7 +6,6 @@ import ServerInfo from "./components/ServerInfo";
 import RulesSection from "./components/RulesSection";
 import RankSection from "./components/RankSection";
 import IPAddressCopy from "./components/IPAddressCopy";
-import OtherServersGallery from "./components/OtherServersGallery";
 import Footer from "./components/Footer";
 import BackToTop from "./components/BackToTop";
 import Toast from "./components/Toast";
@@ -54,9 +53,6 @@ export default function App() {
 
         {/* Connection Copy IP Panel */}
         <IPAddressCopy onCopy={handleCopy} />
-
-        {/* Developer RAN DEV Portfolio Gallery */}
-        <OtherServersGallery />
       </main>
 
       {/* Footer & Watermarks */}
