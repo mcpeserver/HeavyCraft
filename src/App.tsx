@@ -9,10 +9,12 @@ import IPAddressCopy from "./components/IPAddressCopy";
 import Footer from "./components/Footer";
 import BackToTop from "./components/BackToTop";
 import Toast from "./components/Toast";
+import { useDevConfig } from "./hooks/useDevConfig";
 
 export default function App() {
   const [toastMessage, setToastMessage] = useState("");
   const [toastVisible, setToastVisible] = useState(false);
+  const { config: devConfig } = useDevConfig();
 
   const handleCopy = (text: string, label: string) => {
     navigator.clipboard.writeText(text)
@@ -35,7 +37,10 @@ export default function App() {
       <ScrollProgress />
 
       {/* Sticky Combined Header & Watermark */}
-      <Header onCopyIP={(ip) => handleCopy(ip, "IP Server Java")} />
+      <Header 
+        onCopyIP={(ip) => handleCopy(ip, "IP Server Java")} 
+        devConfig={devConfig}
+      />
 
       {/* Main Layout Content */}
       <main>
@@ -56,7 +61,7 @@ export default function App() {
       </main>
 
       {/* Footer & Watermarks */}
-      <Footer />
+      <Footer devConfig={devConfig} />
 
       {/* Floating Utilities */}
       <BackToTop />

@@ -2,12 +2,14 @@ import { useState } from "react";
 import { siteConfig } from "../config/site";
 import logoImg from "../assets/images/logo_1783279235216.jpg";
 import { Copy, Shield, Layers, HelpCircle, Server, Menu, X, ArrowUpRight, ChevronDown, Globe } from "lucide-react";
+import { DevConfig } from "../hooks/useDevConfig";
 
 interface HeaderProps {
   onCopyIP: (ip: string) => void;
+  devConfig?: DevConfig;
 }
 
-export default function Header({ onCopyIP }: HeaderProps) {
+export default function Header({ onCopyIP, devConfig }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [portfolioOpen, setPortfolioOpen] = useState(false);
 
@@ -22,63 +24,95 @@ export default function Header({ onCopyIP }: HeaderProps) {
     onCopyIP(siteConfig.server.javaIp);
   };
 
+  const devName = devConfig?.name || siteConfig.developer.name;
+  const devWhatsapp = devConfig?.contact?.whatsapp || siteConfig.developer.whatsapp;
+  const devPortfolio = devConfig?.website?.portfolio || `https://wa.me/${devWhatsapp}?text=Halo%20RAN%20DEV,%20saya%20tertarik%20untuk%20membuat%20website%20komunitas%20Minecraft`;
+  const devCommunityName = devConfig?.community?.name || "RAN DEV Community";
+  const devCommunityWeb = devConfig?.community?.website || `https://wa.me/${devWhatsapp}`;
+  const devCommunityDiscord = devConfig?.community?.discord || "https://discord.gg/";
+
   return (
     <div className="sticky top-0 z-50 w-full flex flex-col">
       {/* RAN DEV Developer Watermark Pitch Bar with Interactive Dropdown */}
       <div className="w-full bg-brand-cyan px-4 py-2 text-brand-obsidian shadow-md relative z-50">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 flex-wrap text-[11px] sm:text-xs font-semibold">
           <div className="flex items-center gap-2 flex-wrap">
-            <span>Developed by <span className="font-extrabold">RAN DEV</span> (<a href={`https://wa.me/${siteConfig.developer.whatsapp}`} target="_blank" rel="noopener noreferrer" className="underline hover:text-white transition-colors font-bold">{siteConfig.developer.whatsapp}</a>) —</span>
+            <span>Developed by <span className="font-extrabold">{devName}</span> (<a href={`https://wa.me/${devWhatsapp}`} target="_blank" rel="noopener noreferrer" className="underline hover:text-white transition-colors font-bold">{devWhatsapp}</a>) —</span>
             <span className="text-brand-obsidian/85 hidden lg:inline">{siteConfig.developer.headerPitch}</span>
           </div>
 
           <div className="flex items-center gap-2 ml-auto sm:ml-0 relative">
-            {/* Interactive Portfolio Dropdown Selector */}
+            {/* Interactive Developer Hub Dropdown */}
             <div className="relative">
               <button
                 onClick={() => setPortfolioOpen(!portfolioOpen)}
-                className="inline-flex items-center gap-1 rounded-full bg-brand-obsidian px-2.5 py-1 text-[10px] font-extrabold text-brand-cyan hover:bg-white hover:text-brand-obsidian transition-all shadow-sm cursor-pointer border border-brand-cyan/20"
+                className="inline-flex items-center gap-1 rounded-full bg-brand-obsidian px-2.5 py-1 text-[10px] font-extrabold text-brand-cyan hover:bg-white hover:text-brand-obsidian transition-all shadow-sm cursor-pointer border border-brand-cyan/20 animate-pulse"
               >
                 <Globe className="h-3 w-3" />
-                Lihat Web Server Lain <ChevronDown className={`h-3 w-3 transition-transform duration-200 ${portfolioOpen ? "rotate-180" : ""}`} />
+                RAN DEV Hub <ChevronDown className={`h-3 w-3 transition-transform duration-200 ${portfolioOpen ? "rotate-180" : ""}`} />
               </button>
 
               {/* Dropdown Menu Overlay & Card */}
               {portfolioOpen && (
                 <>
                   <div className="fixed inset-0 z-40" onClick={() => setPortfolioOpen(false)}></div>
-                  <div className="absolute right-0 mt-2 w-64 rounded-xl border border-white/10 bg-brand-charcoal/95 p-3 text-white shadow-2xl shadow-brand-cyan/10 backdrop-blur-xl z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                  <div className="absolute right-0 mt-2 w-64 rounded-xl border border-white/10 bg-brand-charcoal/95 p-3.5 text-white shadow-2xl shadow-brand-cyan/20 backdrop-blur-xl z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                     <p className="text-[10px] font-bold text-brand-cyan uppercase tracking-wider mb-2 pb-1 border-b border-white/5">
-                      Portofolio Web RAN DEV
+                      Layanan & Komunitas
                     </p>
-                    <div className="flex flex-col gap-1">
-                      {siteConfig.otherServers.map((server) => {
-                        const r = encodeURIComponent(`Halo RAN DEV, saya melihat portofolio untuk "${server.name}" (${server.theme}). Saya tertarik untuk membuat website komunitas Minecraft sejenis.`);
-                        const s = `https://wa.me/${siteConfig.developer.whatsapp}?text=${r}`;
-                        return (
-                          <a
-                            key={server.name}
-                            href={s}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={() => setPortfolioOpen(false)}
-                            className="flex flex-col rounded-lg p-2 hover:bg-white/5 transition-all text-left group/item"
-                          >
-                            <span className="font-display font-bold text-xs flex items-center justify-between text-white group-hover/item:text-brand-cyan transition-colors">
-                              {server.name}
-                              <ArrowUpRight className="h-3 w-3 opacity-0 group-hover/item:opacity-100 transition-opacity" />
-                            </span>
-                            <span className="text-[9px] text-slate-400 font-mono mt-0.5">{server.theme}</span>
-                          </a>
-                        );
-                      })}
-                    </div>
-                    <div className="mt-2 pt-2 border-t border-white/5">
+                    <div className="flex flex-col gap-1.5">
+                      {/* Portfolio Link */}
                       <a
-                        href={`https://wa.me/${siteConfig.developer.whatsapp}?text=Halo%20RAN%20DEV,%20saya%20tertarik%20untuk%20membuat%20website%20komunitas%20Minecraft`}
+                        href={devPortfolio}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center justify-center gap-1 rounded-lg bg-brand-cyan text-brand-obsidian py-1.5 text-[10px] font-bold hover:bg-white hover:text-brand-obsidian transition-all w-full"
+                        onClick={() => setPortfolioOpen(false)}
+                        className="flex flex-col rounded-lg p-2 hover:bg-white/5 transition-all text-left group/item border border-transparent hover:border-brand-cyan/10"
+                      >
+                        <span className="font-display font-bold text-xs flex items-center justify-between text-white group-hover/item:text-brand-cyan transition-colors">
+                          Website Portfolio
+                          <ArrowUpRight className="h-3.5 w-3.5 text-brand-cyan opacity-80" />
+                        </span>
+                        <span className="text-[9px] text-slate-400 font-mono mt-0.5">Lihat hasil karya website premium</span>
+                      </a>
+
+                      {/* Developer Community Link */}
+                      <a
+                        href={devCommunityWeb}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => setPortfolioOpen(false)}
+                        className="flex flex-col rounded-lg p-2 hover:bg-white/5 transition-all text-left group/item border border-transparent hover:border-brand-cyan/10"
+                      >
+                        <span className="font-display font-bold text-xs flex items-center justify-between text-white group-hover/item:text-brand-cyan transition-colors">
+                          {devCommunityName}
+                          <ArrowUpRight className="h-3.5 w-3.5 text-brand-cyan opacity-80" />
+                        </span>
+                        <span className="text-[9px] text-slate-400 font-mono mt-0.5">Website Komunitas Developer</span>
+                      </a>
+
+                      {/* Discord Link */}
+                      <a
+                        href={devCommunityDiscord}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => setPortfolioOpen(false)}
+                        className="flex flex-col rounded-lg p-2 hover:bg-white/5 transition-all text-left group/item border border-transparent hover:border-brand-cyan/10"
+                      >
+                        <span className="font-display font-bold text-xs flex items-center justify-between text-white group-hover/item:text-brand-cyan transition-colors">
+                          Discord Komunitas
+                          <ArrowUpRight className="h-3.5 w-3.5 text-brand-cyan opacity-80" />
+                        </span>
+                        <span className="text-[9px] text-slate-400 font-mono mt-0.5">Bergabung dengan grup Discord</span>
+                      </a>
+                    </div>
+
+                    <div className="mt-3 pt-2.5 border-t border-white/5">
+                      <a
+                        href={`https://wa.me/${devWhatsapp}?text=Halo%20RAN%20DEV,%20saya%20tertarik%20untuk%20membuat%20website%20komunitas%20Minecraft`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center gap-1.5 rounded-lg bg-brand-cyan text-brand-obsidian py-2 text-xs font-bold hover:bg-white hover:text-brand-obsidian transition-all w-full shadow-md"
                       >
                         Pesan Website Komunitas
                       </a>
@@ -89,7 +123,7 @@ export default function Header({ onCopyIP }: HeaderProps) {
             </div>
 
             <a
-              href={`https://wa.me/${siteConfig.developer.whatsapp}?text=Halo%20RAN%20DEV,%20saya%20tertarik%20untuk%20membuat%20website%20komunitas%20seperti%20Heavy%20Craft`}
+              href={`https://wa.me/${devWhatsapp}?text=Halo%20RAN%20DEV,%20saya%20tertarik%20untuk%20membuat%20website%20komunitas%20seperti%20Heavy%20Craft`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-0.5 rounded-full bg-brand-obsidian px-2.5 py-1 text-[10px] font-extrabold text-brand-cyan hover:bg-white hover:text-brand-obsidian transition-all border border-brand-cyan/20"
@@ -99,6 +133,7 @@ export default function Header({ onCopyIP }: HeaderProps) {
           </div>
         </div>
       </div>
+
 
       {/* Main Navigation Bar */}
       <header className="w-full border-b border-white/5 bg-brand-obsidian/80 py-3 backdrop-blur-md">
