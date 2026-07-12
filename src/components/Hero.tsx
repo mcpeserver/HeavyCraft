@@ -5,7 +5,11 @@ import heroBgImg from "../assets/images/hero_bg_1783279248075.jpg";
 import { MessageSquare, ArrowDown, ExternalLink, ShieldCheck } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
-export default function Hero() {
+interface HeroProps {
+  setActivePage: (page: string) => void;
+}
+
+export default function Hero({ setActivePage }: HeroProps) {
   const [quoteIndex, setQuoteIndex] = useState(0);
   const quotes = siteConfig.server.slogans.quotes;
 
@@ -123,13 +127,16 @@ export default function Hero() {
           </a>
 
           {/* Secondary CTA - Learn More */}
-          <a
-            href="#tentang"
-            className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 p-4 text-sm font-bold text-white transition-all duration-300"
+          <button
+            onClick={() => {
+              setActivePage("informasi");
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 p-4 text-sm font-bold text-white transition-all duration-300 cursor-pointer"
           >
             <ArrowDown className="h-4.5 w-4.5 animate-bounce" />
             Lihat Informasi Server
-          </a>
+          </button>
         </motion.div>
       </div>
     </section>

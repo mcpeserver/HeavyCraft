@@ -1,0 +1,6 @@
+# Robots.txt for Heavy Craft Minecraft Community Website
+User-agent: *
+Allow: /
+
+# Sitemap Location
+Sitemap: https://heavycraft.my.id/sitemap.xml

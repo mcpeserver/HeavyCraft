@@ -10,10 +10,12 @@ import Footer from "./components/Footer";
 import BackToTop from "./components/BackToTop";
 import Toast from "./components/Toast";
 import { useDevConfig } from "./hooks/useDevConfig";
+import { motion, AnimatePresence } from "motion/react";
 
 export default function App() {
   const [toastMessage, setToastMessage] = useState("");
   const [toastVisible, setToastVisible] = useState(false);
+  const [activePage, setActivePage] = useState("beranda");
   const { config: devConfig } = useDevConfig();
 
   const handleCopy = (text: string, label: string) => {
@@ -31,34 +33,85 @@ export default function App() {
       });
   };
 
+  const pageVariants = {
+    initial: { opacity: 0, y: 15 },
+    animate: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
+    exit: { opacity: 0, y: -15, transition: { duration: 0.3, ease: "easeIn" } }
+  };
+
   return (
-    <div className="min-h-screen bg-brand-obsidian text-slate-100 font-sans selection:bg-brand-cyan/30 selection:text-white">
-      {/* Scroll Progress Indicator */}
-      <ScrollProgress />
+    <div className="min-h-screen bg-brand-obsidian text-slate-100 font-sans selection:bg-brand-cyan/30 selection:text-white flex flex-col justify-between">
+      <div>
+        {/* Scroll Progress Indicator */}
+        <ScrollProgress />
 
-      {/* Sticky Combined Header & Watermark */}
-      <Header 
-        onCopyIP={(ip) => handleCopy(ip, "IP Server Java")} 
-        devConfig={devConfig}
-      />
+        {/* Sticky Combined Header & Watermark */}
+        <Header 
+          onCopyIP={(ip) => handleCopy(ip, "IP Server Java")} 
+          activePage={activePage}
+          setActivePage={setActivePage}
+          devConfig={devConfig}
+        />
 
-      {/* Main Layout Content */}
-      <main>
-        {/* Hero Section */}
-        <Hero />
+        {/* Main Layout Content with lag-free page transitions */}
+        <main className="relative w-full overflow-x-hidden">
+          <AnimatePresence mode="wait">
+            {activePage === "beranda" && (
+              <motion.div
+                key="beranda"
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                variants={pageVariants}
+              >
+                {/* Hero Section */}
+                <Hero setActivePage={setActivePage} />
+              </motion.div>
+            )}
 
-        {/* Server Info / About Section */}
-        <ServerInfo />
+            {activePage === "informasi" && (
+              <motion.div
+                key="informasi"
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                variants={pageVariants}
+              >
+                {/* Server Info / About Section */}
+                <ServerInfo />
+                {/* Connection Copy IP Panel */}
+                <IPAddressCopy onCopy={handleCopy} />
+              </motion.div>
+            )}
 
-        {/* Rules Section */}
-        <RulesSection />
+            {activePage === "aturan" && (
+              <motion.div
+                key="aturan"
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                variants={pageVariants}
+              >
+                {/* Rules Section */}
+                <RulesSection />
+              </motion.div>
+            )}
 
-        {/* Pricing & Rank Cards Section */}
-        <RankSection />
-
-        {/* Connection Copy IP Panel */}
-        <IPAddressCopy onCopy={handleCopy} />
-      </main>
+            {activePage === "rank" && (
+              <motion.div
+                key="rank"
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                variants={pageVariants}
+              >
+                {/* Pricing & Rank Cards Section */}
+                <RankSection />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </main>
+      </div>
 
       {/* Footer & Watermarks */}
       <Footer devConfig={devConfig} />
